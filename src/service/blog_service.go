@@ -6,8 +6,8 @@ import (
 )
 
 var (
-	BlogService blogServiceInterface = NewBlogService(domain.NewBlogItemRepo())
-	blog        domain.BlogItemInterface
+	BlogService blogServiceInterface = NewBlogService(domain.NewBlogItemDomain())
+	blog        domain.BlogItemDomainInterface
 )
 
 type blogServiceInterface interface {
@@ -17,7 +17,7 @@ type blogServiceInterface interface {
 
 type blogService struct{}
 
-func NewBlogService(inc domain.BlogItemInterface) blogServiceInterface {
+func NewBlogService(inc domain.BlogItemDomainInterface) blogServiceInterface {
 	blog = inc
 	return &blogService{}
 }

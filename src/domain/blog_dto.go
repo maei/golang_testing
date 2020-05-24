@@ -5,14 +5,14 @@ import (
 )
 
 var (
-	BlogItemService BlogItemInterface = NewBlogItemRepo()
+	BlogItemDomain BlogItemDomainInterface = NewBlogItemDomain()
 )
 
-type BlogItemInterface interface {
+type BlogItemDomainInterface interface {
 	IsTitleUnique(string) bool
 }
 
-func NewBlogItemRepo() BlogItemInterface {
+func NewBlogItemDomain() BlogItemDomainInterface {
 	return &BlogItem{}
 }
 
