@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"github.com/maei/golang_testing/src/domain"
 )
 
@@ -12,7 +11,7 @@ var (
 
 type BlogServiceInterface interface {
 	Validate(string) string
-	SomeTest(data string) string
+	ValidateBlog(blog domain.BlogItem) string
 }
 
 type blogService struct{}
@@ -29,6 +28,9 @@ func (b *blogService) Validate(title string) string {
 	return "good to go"
 }
 
-func (b *blogService) SomeTest(data string) string {
-	return fmt.Sprintf("Hello %v", data)
+func (b *blogService) ValidateBlog(blog domain.BlogItem) string {
+	if !blogDomain.IsTitleUnique(blog.Content) {
+		return "No Good"
+	}
+	return "good to go"
 }

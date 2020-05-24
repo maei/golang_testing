@@ -17,9 +17,9 @@ func NewBlogItemDomain() BlogItemDomainInterface {
 }
 
 type BlogItem struct {
-	ID      string
-	Content string
-	Title   string
+	ID      string `json:"id"`
+	Content string `json:"content"`
+	Title   string `json:"title"`
 }
 
 func (b *BlogItem) IsTitleUnique(testString string) bool {
