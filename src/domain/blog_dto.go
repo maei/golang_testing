@@ -4,7 +4,9 @@ import (
 	"fmt"
 )
 
-var BlogItemService BlogItemInterface = &BlogItem{}
+var (
+	BlogItemService BlogItemInterface = NewBlogItemRepo()
+)
 
 type BlogItemInterface interface {
 	IsTitleUnique(string) bool

@@ -25,5 +25,5 @@ func TestValidate(t *testing.T) {
 
 	res := testService.Validate(testString)
 	mockRepo.AssertExpectations(t)
-	assert.Equal(t, "No Good", res)
+	assert.Equal(t, "good to go", res)
 }
