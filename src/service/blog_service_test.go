@@ -18,28 +18,28 @@ func (m *MockRepository) IsTitleUnique(testString string) bool {
 
 func TestValidate(t *testing.T) {
 	mockRepo := new(MockRepository)
-	testString := "gdfgdfg"
+	testString := ""
 
-	mockRepo.On("IsTitleUnique").Return(true)
+	mockRepo.On("IsTitleUnique").Return(false)
 
 	testService := NewBlogService(mockRepo)
 
 	res := testService.Validate(testString)
 	mockRepo.AssertExpectations(t)
-	assert.Equal(t, "good to go", res)
+	assert.Equal(t, "No Good", res)
 }
 
 func TestValidateBlog(t *testing.T) {
 	mockRepo := new(MockRepository)
 	blog := domain.BlogItem{
 		ID:      "asdasd",
-		Content: "",
+		Content: "asdsd",
 		Title:   "asdasdasd",
 	}
-	mockRepo.On("IsTitleUnique").Return(false)
+	mockRepo.On("IsTitleUnique").Return(true)
 	testService := NewBlogService(mockRepo)
 	res := testService.ValidateBlog(blog)
 	mockRepo.AssertExpectations(t)
-	assert.Equal(t, "No Good", res)
+	assert.Equal(t, "good to go", res)
 
 }
