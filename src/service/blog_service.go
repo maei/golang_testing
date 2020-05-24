@@ -7,7 +7,7 @@ import (
 
 var (
 	BlogService blogServiceInterface = NewBlogService(domain.NewBlogItemDomain())
-	blog        domain.BlogItemDomainInterface
+	blogDomain  domain.BlogItemDomainInterface
 )
 
 type blogServiceInterface interface {
@@ -18,17 +18,18 @@ type blogServiceInterface interface {
 type blogService struct{}
 
 func NewBlogService(inc domain.BlogItemDomainInterface) blogServiceInterface {
-	blog = inc
+	blogDomain = inc
 	return &blogService{}
 }
 
 func (b *blogService) Validate(title string) string {
-	if !blog.IsTitleUnique(title) {
+	if !blogDomain.IsTitleUnique(title) {
 		return "No Good"
 	}
 	return "good to go"
 }
 
 func (b *blogService) SomeTest(data string) string {
+	blogDomain.Blaaa()
 	return fmt.Sprintf("Hello %v", data)
 }
