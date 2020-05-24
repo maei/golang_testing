@@ -10,7 +10,6 @@ var (
 
 type BlogItemDomainInterface interface {
 	IsTitleUnique(string) bool
-	Blaaa()
 }
 
 func NewBlogItemDomain() BlogItemDomainInterface {
@@ -31,6 +30,6 @@ func (b *BlogItem) IsTitleUnique(testString string) bool {
 	return true
 }
 
-func (b *BlogItem) Blaaa() {
+func (b *BlogItem) testIng() {
 
 }

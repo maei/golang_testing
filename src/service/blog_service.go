@@ -30,6 +30,5 @@ func (b *blogService) Validate(title string) string {
 }
 
 func (b *blogService) SomeTest(data string) string {
-	blogDomain.Blaaa()
 	return fmt.Sprintf("Hello %v", data)
 }
