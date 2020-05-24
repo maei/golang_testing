@@ -6,18 +6,18 @@ import (
 )
 
 var (
-	BlogService blogServiceInterface = NewBlogService(domain.NewBlogItemDomain())
+	BlogService BlogServiceInterface = NewBlogService(domain.NewBlogItemDomain())
 	blogDomain  domain.BlogItemDomainInterface
 )
 
-type blogServiceInterface interface {
+type BlogServiceInterface interface {
 	Validate(string) string
 	SomeTest(data string) string
 }
 
 type blogService struct{}
 
-func NewBlogService(inc domain.BlogItemDomainInterface) blogServiceInterface {
+func NewBlogService(inc domain.BlogItemDomainInterface) BlogServiceInterface {
 	blogDomain = inc
 	return &blogService{}
 }
