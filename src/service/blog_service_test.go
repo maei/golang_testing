@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/maei/golang_testing/src/domain"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"testing"
@@ -26,4 +27,19 @@ func TestValidate(t *testing.T) {
 	res := testService.Validate(testString)
 	mockRepo.AssertExpectations(t)
 	assert.Equal(t, "good to go", res)
+}
+
+func TestValidateBlog(t *testing.T) {
+	mockRepo := new(MockRepository)
+	blog := domain.BlogItem{
+		ID:      "asdasd",
+		Content: "",
+		Title:   "asdasdasd",
+	}
+	mockRepo.On("IsTitleUnique").Return(false)
+	testService := NewBlogService(mockRepo)
+	res := testService.ValidateBlog(blog)
+	mockRepo.AssertExpectations(t)
+	assert.Equal(t, "No Good", res)
+
 }
