@@ -1,11 +1,12 @@
 package main
 
-import "github.com/maei/golang_testing/src/app"
+import (
+	"context"
+	"github.com/maei/golang_testing/src/app"
+	"github.com/maei/golang_testing/src/repository/mongodb"
+)
 
 func main() {
-	//test := service.BlogService.Validate("dsfdf")
-	//fmt.Println(test)
-
 	app.StartApplication()
-
+	mongodb.MongoClient.Disconnect(context.Background())
 }

@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"errors"
 	"github.com/labstack/echo/v4"
 	"github.com/maei/golang_testing/src/domain"
 	"github.com/maei/golang_testing/src/service"
@@ -34,20 +33,30 @@ func (*blogController) PostBlog(c echo.Context) error {
 
 	bs, err := ioutil.ReadAll(req)
 	if err != nil {
-		return errors.New("decode json failed")
+		return c.JSON(http.StatusInternalServerError, map[string]string{
+			"message": err.Error(),
+		})
 	}
 
-	blog := domain.BlogItem{}
+	blog := domain.BlogItemRequest{}
 
 	err = json.Unmarshal(bs, &blog)
 	if err != nil {
 		log.Println(err)
-		return errors.New("unmarshal to blog-item failed")
+		return c.JSON(http.StatusInternalServerError, map[string]string{
+			"message": err.Error(),
+		})
 	}
 
-	res := blogService.ValidateBlog(blog)
+	res, error := blogService.SaveBlog(blog)
+	if error != nil {
+		log.Println(err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{
+			"message": error.Error(),
+		})
+	}
 
-	return c.JSON(http.StatusOK, map[string]string{
+	return c.JSON(http.StatusOK, map[string]*domain.BlogItemResponse{
 		"message": res,
 	})
 }

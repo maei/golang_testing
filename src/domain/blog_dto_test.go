@@ -6,7 +6,7 @@ import (
 )
 
 func TestIsTitleUnique(t *testing.T) {
-	testService := NewBlogItemDomain()
+	testService := NewBlogDomainDTO()
 
 	// Fail Testcase
 	failString := ""

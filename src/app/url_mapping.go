@@ -5,7 +5,7 @@ import (
 )
 
 func publicRoutes() {
-	router.GET("/validate", controller.BlogController.PostBlog)
+	router.GET("/post", controller.BlogController.PostBlog)
 }
 
 func mapUrls() {

@@ -1,25 +1,37 @@
 package domain
 
 import (
+	"context"
 	"fmt"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 var (
-	BlogItemDomain BlogItemDomainInterface = NewBlogItemDomain()
+	BlogDomain BlogDomainInterface = NewBlogDomain()
 )
 
-type BlogItemDomainInterface interface {
-	IsTitleUnique(string) bool
+type BlogItem struct{}
+
+type BlogItemRequest struct {
+	ID       primitive.ObjectID `bson:"_id,omitempty"`
+	AuthorID string             `bson:"author_id" json:"author_id"`
+	Content  string             `bson:"content" json:"content"`
+	Title    string             `bson:"title" json:"title"`
 }
 
-func NewBlogItemDomain() BlogItemDomainInterface {
-	return &BlogItem{}
-}
-
-type BlogItem struct {
+type BlogItemResponse struct {
 	ID      string `json:"id"`
 	Content string `json:"content"`
 	Title   string `json:"title"`
+}
+
+type BlogDomainInterface interface {
+	IsTitleUnique(string) bool
+	InsertOne(context.Context, interface{}) (string, error)
+}
+
+func NewBlogDomain() BlogDomainInterface {
+	return &BlogItem{}
 }
 
 func (b *BlogItem) IsTitleUnique(testString string) bool {
