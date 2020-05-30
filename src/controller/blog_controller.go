@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	BlogController BlogControllerInterface = NewBlogController(service.BlogService)
+	BlogController BlogControllerInterface = NewBlogController(service.BlogService, echo.Validator())
 	blogService    service.BlogServiceInterface
 )
 

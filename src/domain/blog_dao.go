@@ -7,7 +7,7 @@ import (
 	"log"
 )
 
-func (*BlogItem) InsertOne(ctx context.Context, document interface{}) (string, error) {
+func (*blogItem) InsertOne(ctx context.Context, document interface{}) (string, error) {
 	log.Println("hello")
 	insert, errMongo := mongodb.MongoCollectionBlog.InsertOne(ctx, document)
 	if errMongo != nil {

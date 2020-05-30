@@ -4,19 +4,21 @@ import (
 	"context"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"time"
 )
 
 var (
 	BlogDomain BlogDomainInterface = NewBlogDomain()
 )
 
-type BlogItem struct{}
+type blogItem struct{}
 
 type BlogItemRequest struct {
-	ID       primitive.ObjectID `bson:"_id,omitempty"`
-	AuthorID string             `bson:"author_id" json:"author_id"`
-	Content  string             `bson:"content" json:"content"`
-	Title    string             `bson:"title" json:"title"`
+	ID        primitive.ObjectID `bson:"_id,omitempty"`
+	AuthorID  string             `bson:"author_id" json:"author_id"`
+	Content   string             `bson:"content" json:"content"`
+	Title     string             `bson:"title" json:"title" validate:"required,title"`
+	CreatedAt time.Time          `bson:"created_at"`
 }
 
 type BlogItemResponse struct {
@@ -31,10 +33,10 @@ type BlogDomainInterface interface {
 }
 
 func NewBlogDomain() BlogDomainInterface {
-	return &BlogItem{}
+	return &blogItem{}
 }
 
-func (b *BlogItem) IsTitleUnique(testString string) bool {
+func (b *blogItem) IsTitleUnique(testString string) bool {
 	fmt.Println("Call ValidateContent")
 	if testString == "" {
 		return false
@@ -42,6 +44,6 @@ func (b *BlogItem) IsTitleUnique(testString string) bool {
 	return true
 }
 
-func (b *BlogItem) testIng() {
+func (b *blogItem) testIng() {
 
 }
